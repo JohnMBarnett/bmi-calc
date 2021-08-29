@@ -1,13 +1,8 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import Background from './components/background';
-import MetricForm from './components/metric';
+import Background from './components/styling-components/background';
 
-const initialFormValues = {
-    height: 0,
-    weight: 0
-};
+
 
 const StyledLink = styled(Link) `
     text-align: center;

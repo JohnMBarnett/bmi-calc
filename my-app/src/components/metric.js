@@ -1,6 +1,11 @@
-import Background from "./background";
-import FormContainer from "./box";
+import Background from "./styling-components/background";
+import FormContainer from "./styling-components/box";
 import React, {useState, useEffect} from "react";
+import StyledLabel from "./styling-components/labels";
+import StyledButton from "./styling-components/submitbutton";
+import StyledForm from "./styling-components/form";
+import FormPositioner from "./styling-components/formpositioner";
+import StyledHomeLink from "./styling-components/homebutton";
 
 const initialFormValues = {
     height: 0,
@@ -41,32 +46,35 @@ const MetricForm = () => {
       healthTest()      
     })
 
-     return (
+    return (
         <Background>
             <FormContainer>
                 <h1>B.M.I. Calculator</h1>
-                <form  onSubmit={handleSubmit}>
-                    <label>Height(cm):</label>
-                    <input 
-                        name='height'
-                        type='number'
-                        value={formValue.height}
-                        placeholder='Enter your heighth!'
-                        onChange={change}
-                    /><br></br>
-                    <label>Weight(kg)</label>
-                    <input 
-                        name='weight'
-                        type='number'
-                        value={formValue.weight}
-                        placeholder='Enter your weight!'
-                        onChange={change}
-                    /><br></br>
-                    <button>Submit</button>
-                </form>
-                <h2>You have a B.M.I. of {bmi}</h2>
-                <h3>{health}</h3>
+                <StyledForm  onSubmit={handleSubmit}>
+                    <FormPositioner>
+                        <StyledLabel>Height(cm):</StyledLabel>
+                        <input 
+                            name='height'
+                            type='number'
+                            value={formValue.height}
+                            placeholder='Enter your heighth!'
+                            onChange={change}
+                        /><br></br>
+                        <StyledLabel>Weight(kg):</StyledLabel>
+                        <input 
+                            name='weight'
+                            type='number'
+                            value={formValue.weight}
+                            placeholder='Enter your weight!'
+                            onChange={change}
+                        /><br></br>
+                        <StyledButton>Submit</StyledButton>
+                    </FormPositioner>
+                </StyledForm>
+                <h1>You have a B.M.I. of {bmi}</h1>
+                <h2>{health}</h2>
             </FormContainer>
+            <StyledHomeLink to='/imperial'>Imperial</StyledHomeLink>
         </Background>
     )
 }
