@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-const FormBox = () => {
 
     const FormContainer = styled.div `
         text-align: center;
@@ -11,11 +10,6 @@ const FormBox = () => {
         border-radius: 40px;
     `
 
-    return (
-        <FormContainer>
-            <h1>B.M.I. Calculator</h1>
-        </FormContainer>
-    )
-}
+    
 
-export default FormBox;
+export default FormContainer;
