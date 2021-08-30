@@ -36,8 +36,8 @@ const MainPage = () => {
             <Background>
                 <h1>Choose your system of measurement</h1>
                 <ButtonPositioning>
-                    <StyledLink to='/metric'>Metric</StyledLink>
-                    <StyledLink to='/imperial'>Imperial</StyledLink>
+                    <StyledLink to='/metric' id='metric'>Metric</StyledLink>
+                    <StyledLink to='/imperial' id='imperial'>Imperial</StyledLink>
                 </ButtonPositioning>
             </Background>
         </>

@@ -10,18 +10,21 @@ import * as yup from 'yup';
 import schema from './formvalidation/formschema';
 
 
-
+const initialFormValues = {
+    weight: undefined,
+    health: undefined
+}
 
 const initialFormErrors = {
     weight: '', 
     height: ''
   }
 
-  const initialDisabled = true
+const initialDisabled = true
 
 
 const ImperialForm = () => {
-    const [formValue, setFormValue] = useState([]);
+    const [formValue, setFormValue] = useState(initialFormValues);
     const [bmi, setBmi] = useState(0)
     const [health, setHealth] = useState('');
     const [formErrors, setFormErrors] = useState(initialFormErrors)
@@ -44,24 +47,15 @@ const ImperialForm = () => {
           .validate(value)
           .then(() => setFormErrors({...formErrors, [name]: '' }))
           .catch(err => setFormErrors({...formErrors, [name]: err.errors[0] }))
-      }
+    }
 
     const change = (evt) => {
         const { type, name, value, checked } = evt.target;
-
         const newValue = type === "checkbox" ? checked : value;
-
         validate(name, newValue)
-
         if(newValue >= 0) {
             setFormValue({ ...formValue, [name]: newValue });
         }
-    }
-
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-        setBmi(Math.round((formValue.weight / (formValue.height * formValue.height)) * 703))
-       
     }
 
     useEffect(() => {
@@ -70,7 +64,14 @@ const ImperialForm = () => {
 
     useEffect(() => {
         schema.isValid(formValue).then(valid => setDisabled(!valid));
-      }, [formValue])
+    }, [formValue])
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        setBmi(Math.round((formValue.weight / (formValue.height * formValue.height)) * 703))
+        setFormValue(initialFormValues);
+        document.forms["id_form"].reset();
+    }
 
 
     return (
@@ -79,10 +80,10 @@ const ImperialForm = () => {
                 <h1>B.M.I. Calculator</h1>
                 <h2>{formErrors.height}</h2>
                 <h2>{formErrors.weight}</h2>
-                <StyledForm  onSubmit={handleSubmit}>
+                <StyledForm  id='id_form' onSubmit={handleSubmit}>
                     <FormPositioner>
                         <StyledLabel>Height(in):</StyledLabel>
-                        <input 
+                        <input id='height'
                             name='height'
                             type='number'
                             value={formValue.height}
@@ -90,7 +91,7 @@ const ImperialForm = () => {
                             onChange={change}
                         /><br></br>
                         <StyledLabel>Weight(lbs):</StyledLabel>
-                        <input 
+                        <input id='weight'
                             name='weight'
                             type='number'
                             value={formValue.weight}
@@ -100,7 +101,7 @@ const ImperialForm = () => {
                         <StyledButton disabled={disabled}>Submit</StyledButton>
                     </FormPositioner>
                 </StyledForm>
-                <h1>You have a B.M.I. of {bmi}</h1>
+                <h1 id="bmi">You have a B.M.I. of {bmi}</h1>
                 <h2>{health}</h2>
             </FormContainer>
             <StyledHomeLink to='/metric'>Metric</StyledHomeLink>
